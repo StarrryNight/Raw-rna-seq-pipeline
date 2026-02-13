@@ -1,0 +1,5 @@
+deeptools==3.5.6
+pyBigWig
+numpy
+matplotlib
+pandas
