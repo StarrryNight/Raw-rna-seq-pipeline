@@ -1,0 +1,49 @@
+samples:
+  yac_sample_1:
+    R1: ''
+    R2: ''
+
+ref: 
+  human_fasta: 'data/hg38.fa'
+  yeaast_fasta: 'data/sacCer3.fa'
+
+results_dir: "results"
+
+cluser: 
+  account: "def-cdeboer-1"
+
+python_venv: "rna_seq_venv"
+
+trimmomatic:
+  adapters: "TruSeq3-PE.fa"
+  clip: "2:30:10"
+  leading: 3
+  trailing: 3
+  slidingwindow: "4:15"
+  minlen: 36
+  threads: 4
+
+  fastqc:
+  threads: 4
+
+star:
+  threads: 8
+  genome_sa_index_nbases: 14      
+  genome_sa_index_nbases_refined: 11  
+  align_intron_max: 500000
+
+bamcoverage:
+  bin_size: 1
+  normalize_using: "CPM"
+  threads: 8
+
+bigwig_to_numpy:
+  bin_size: 1
+
+# --- Module Versions (envmodules) ---
+modules:
+  fastqc: "fastqc/0.12.1"
+  trimmomatic: "trimmomatic/0.39"
+  star: "star/2.7.11b"
+  samtools: "samtools/1.22.1"
+  python: "python/3.11.5"
