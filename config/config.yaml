@@ -1,11 +1,11 @@
 samples:
-  yac_sample_1:
-    R1: ''
-    R2: ''
+  1951f6-DL-8_10_S13:
+    R1: 'data/1951f6-DL-8_10_S13_L007_R1_001.fastq.gz'
+    R2: 'data/1951f6-DL-8_10_S13_L007_R2_001.fastq.gz'
 
 ref: 
   human_fasta: 'data/hg38.fa'
-  yeaast_fasta: 'data/sacCer3.fa'
+  yeast_fasta: 'data/sacCer3.fa'
 
 results_dir: "results"
 
@@ -23,7 +23,7 @@ trimmomatic:
   minlen: 36
   threads: 4
 
-  fastqc:
+fastqc:
   threads: 4
 
 star:
