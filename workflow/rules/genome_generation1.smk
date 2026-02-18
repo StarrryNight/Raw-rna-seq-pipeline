@@ -5,7 +5,7 @@ rule genome_generation:
         hybrid_index = directory(f"{RESULTS}/full_hybrid_genome_index")
     threads: config["star"]["threads"]
     resources:
-        mem_mb = 32000,
+        mem_mb = 50000,
         time = "8:00:00"
     envmodules:
         config["modules"]["star"]

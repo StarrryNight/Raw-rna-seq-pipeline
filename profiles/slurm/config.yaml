@@ -1,0 +1,5 @@
+cluster: "sbatch --account=def-cdeboer_cpu --partition=cpubase_bycore_b2 --time={resources.time} --mem={resources.mem_mb}M --cpus-per-task={threads} --output=logs/slurm/%j.out --error=logs/slurm/%j.err"
+jobs: 50
+use-envmodules: true
+rerun-incomplete: true
+latency-wait: 60

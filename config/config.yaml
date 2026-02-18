@@ -9,8 +9,8 @@ ref:
 
 results_dir: "results"
 
-cluser: 
-  account: "def-cdeboer-1"
+cluster:
+  account: "def-cdeboer_cpu"
 
 python_venv: "rna_seq_venv"
 
@@ -45,5 +45,5 @@ modules:
   fastqc: "fastqc/0.12.1"
   trimmomatic: "trimmomatic/0.39"
   star: "star/2.7.11b"
-  samtools: "samtools/1.22.1"
+  samtools: "samtools/1.18"
   python: "python/3.11.5"

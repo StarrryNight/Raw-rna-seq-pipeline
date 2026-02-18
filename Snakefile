@@ -17,6 +17,8 @@ include: "workflow/rules/genome_generation1.smk"
 include: "workflow/rules/concatenate1.smk"
 include: "workflow/rules/alignment1.smk"
 include: "workflow/rules/find_human_yac.smk"
+include: "workflow/rules/create_bw.smk"
+include: "workflow/rules/concatenate2.smk"
 
 rule all:
     input:
@@ -25,3 +27,8 @@ rule all:
         f"{RESULTS}/full_hybrid_fasta/hybrid_fasta.fa",
         f"{RESULTS}/full_hybrid_genome_index",
         expand(f"{RESULTS}/{{sample}}/aligned/Aligned.sortedByCoord.out.bam.bai", sample=SAMPLES),
+        expand(f"{RESULTS}/{{sample}}/aligned/Aligned.sortedByCoord.out.bam", sample=SAMPLES),
+        expand(f"{RESULTS}/{{sample}}/yac/yac_region.bed", sample=SAMPLES),
+        expand(f"{RESULTS}/{{sample}}/bigwig/{{sample}}_forward.bw", sample=SAMPLES),
+        expand(f"{RESULTS}/{{sample}}/bigwig/{{sample}}_reverse.bw", sample=SAMPLES),
+        expand(f"{RESULTS}/{{sample}}/yac/hybrid_fasta.fa", sample=SAMPLES)

@@ -1,3 +1,6 @@
 data
 rna_seq_venv
 raw-rnaseq-bashscripts
+results
+.snakemake
+.claude

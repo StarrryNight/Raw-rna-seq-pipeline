@@ -1,0 +1,42 @@
+Building DAG of jobs...
+Using shell: /cvmfs/soft.computecanada.ca/gentoo/2023/x86-64-v3/usr/bin/bash
+Provided cores: 8
+Rules claiming more threads will be scaled down.
+Provided resources: mem_mb=32000, mem_mib=30518, disk_mb=6267, disk_mib=5977
+Select jobs to execute...
+
+[Tue Feb 17 18:27:59 2026]
+rule genome_generation:
+    input: results/full_hybrid_fasta/hybrid_fasta.fa
+    output: results/full_hybrid_genome_index
+    jobid: 0
+    reason: Missing output files: results/full_hybrid_genome_index
+    threads: 8
+    resources: mem_mb=32000, mem_mib=30518, disk_mb=6267, disk_mib=5977, tmpdir=/tmp, time=8:00:00
+
+Activating environment modules: star/2.7.11b
+The following modules were not unloaded:
+  (Use "module --force purge" to unload all):
+
+  1) CCconfig        6)  ucx/1.14.1         11) flexiblas/3.3.1
+  2) gentoo/2023     7)  libfabric/1.18.0   12) imkl/2023.2.0
+  3) gcccore/.12.3   8)  pmix/4.2.4         13) StdEnv/2023
+  4) gcc/12.3        9)  ucc/1.2.0
+  5) hwloc/2.9.1     10) openmpi/4.1.5
+[Tue Feb 17 18:54:54 2026]
+Error in rule genome_generation:
+    jobid: 0
+    input: results/full_hybrid_fasta/hybrid_fasta.fa
+    output: results/full_hybrid_genome_index
+    shell:
+        
+        mkdir -p results/full_hybrid_genome_index
+        STAR --runMode genomeGenerate              --runThreadN 8              --genomeDir results/full_hybrid_genome_index              --genomeFastaFiles results/full_hybrid_fasta/hybrid_fasta.fa              --genomeSAindexNbases 14
+        
+        (one of the commands exited with non-zero exit code; note that snakemake uses bash strict mode!)
+
+Removing output files of failed job genome_generation since they might be corrupted:
+results/full_hybrid_genome_index
+Shutting down, this might take some time.
+Exiting because a job execution failed. Look above for error message
+slurmstepd: error: Detected 1 oom_kill event in StepId=8795705.batch. Some of the step tasks have been OOM Killed.

@@ -28,10 +28,10 @@ END_INDEX=$(( NUM_READS * 99 / 100 ))
 read START END <<< $(samtools view {input.bam} "$TOP_CHR" 2>/dev/null | \
     awk '{{print $4}}' | \
     sort -n | \
-    sed -n "${START_INDEX}p;${END_INDEX}p" | \
+    sed -n "${{START_INDEX}}p;${{END_INDEX}}p" | \
     tr "\n" " ")
 
 echo "Calculated YAC region: $START to $END"
 
-echo -e "${TOP_CHR}\t${START}\t${END}" > {output.bed}
+echo -e "${{TOP_CHR}}\t${{START}}\t${{END}}" > {output.bed}
         '''
