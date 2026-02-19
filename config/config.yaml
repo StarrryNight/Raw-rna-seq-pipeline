@@ -7,7 +7,9 @@ ref:
   human_fasta: 'data/hg38.fa'
   yeast_fasta: 'data/sacCer3.fa'
 
-results_dir: "results"
+process_dir: "process"
+results_dir: "final_results"
+
 
 cluster:
   account: "def-cdeboer_cpu"
@@ -36,6 +38,10 @@ bamcoverage:
   bin_size: 1
   normalize_using: "CPM"
   threads: 8
+
+find_yac_region:
+  trim_start_percentile: 1
+  trim_end_percentile: 99
 
 bigwig_to_numpy:
   bin_size: 1

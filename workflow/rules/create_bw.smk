@@ -1,11 +1,11 @@
 rule create_bigwig:
     input:
-        bam = f"{RESULTS}/{{sample}}/yac_alignment/Aligned.sortedByCoord.out.bam",
-        bai = f"{RESULTS}/{{sample}}/yac_alignment/Aligned.sortedByCoord.out.bam.bai",
+        bam = f"{PROCESS}/{{sample}}/yac_alignment/Aligned.sortedByCoord.out.bam",
+        bai = f"{PROCESS}/{{sample}}/yac_alignment/Aligned.sortedByCoord.out.bam.bai",
         bed = lambda wc: checkpoints.find_yac_region.get(sample=wc.sample).output.bed
     output:
-        bw_forward = f"{RESULTS}/{{sample}}/yac_alignment/{{sample}}_forward.bw",
-        bw_reverse = f"{RESULTS}/{{sample}}/yac_alignment/{{sample}}_reverse.bw"
+        bw_forward = f"{PROCESS}/{{sample}}/yac_alignment/{{sample}}_forward.bw",
+        bw_reverse = f"{PROCESS}/{{sample}}/yac_alignment/{{sample}}_reverse.bw"
     threads: config["bamcoverage"]["threads"]
     resources:
         mem_mb = 16000,

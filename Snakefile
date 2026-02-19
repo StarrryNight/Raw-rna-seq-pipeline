@@ -3,6 +3,7 @@ import os
 configfile: "config/config.yaml"
 
 SAMPLES = list(config["samples"].keys())
+PROCESS = config["process_dir"]
 RESULTS = config["results_dir"]
 
 def get_yac_bed_values(wildcards):

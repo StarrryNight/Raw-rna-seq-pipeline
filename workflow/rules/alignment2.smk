@@ -1,11 +1,11 @@
 rule alignment2:
     input:
-        r1_paired = f"{RESULTS}/{{sample}}/trimmed/R1_paired.fq.gz",
-        r2_paired = f"{RESULTS}/{{sample}}/trimmed/R2_paired.fq.gz",
-        hybrid_index = f"{RESULTS}/{{sample}}/yac/yac_genome_index"
+        r1_paired = f"{PROCESS}/{{sample}}/trimmed/R1_paired.fq.gz",
+        r2_paired = f"{PROCESS}/{{sample}}/trimmed/R2_paired.fq.gz",
+        hybrid_index = f"{PROCESS}/{{sample}}/yac/yac_genome_index"
     output:
-        bam = f"{RESULTS}/{{sample}}/yac_alignment/Aligned.sortedByCoord.out.bam",
-        bai = f"{RESULTS}/{{sample}}/yac_alignment/Aligned.sortedByCoord.out.bam.bai"
+        bam = f"{PROCESS}/{{sample}}/yac_alignment/Aligned.sortedByCoord.out.bam",
+        bai = f"{PROCESS}/{{sample}}/yac_alignment/Aligned.sortedByCoord.out.bam.bai"
     params:
         outprefix = lambda wc, output: os.path.dirname(output.bam) + "/",
         align_intron_max = config["star"]["align_intron_max"]

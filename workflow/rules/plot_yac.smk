@@ -1,11 +1,11 @@
 rule yac_numpy:
     input:
-        fwd_bw = f"{RESULTS}/{{sample}}/yac_alignment/{{sample}}_forward.bw",
-        rev_bw = f"{RESULTS}/{{sample}}/yac_alignment/{{sample}}_reverse.bw",
+        fwd_bw = f"{PROCESS}/{{sample}}/yac_alignment/{{sample}}_forward.bw",
+        rev_bw = f"{PROCESS}/{{sample}}/yac_alignment/{{sample}}_reverse.bw",
         bed = lambda wc: checkpoints.find_yac_region.get(sample=wc.sample).output.bed
     output:
-        fwd_npy = f"{RESULTS}/{{sample}}/final_result/yac_sample_1_fwd.npy",
-        rev_npy = f"{RESULTS}/{{sample}}/final_result/yac_sample_1_rev.npy"
+        fwd_npy = f"{PROCESS}/{{sample}}/final_result/yac_sample_1_fwd.npy",
+        rev_npy = f"{PROCESS}/{{sample}}/final_result/yac_sample_1_rev.npy"
     params:
         outdir = lambda wc, output: os.path.dirname(output.fwd_npy),
         bin_size = config["bigwig_to_numpy"]["bin_size"]
