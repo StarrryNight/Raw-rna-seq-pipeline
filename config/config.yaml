@@ -1,11 +1,11 @@
 samples:
   1951f6-DL-8_10_S13:
-    R1: ['data/1951f6-DL-8_10_S13_L007_R1_001.fastq.gz', data/1951f6-DL-8_10_S13_L008_R1_001.fastq.gz']
-    R2: ['data/1951f6-DL-8_10_S13_L007_R2_001.fastq.gz', data/1951f6-DL-8_10_S13_L008_R2_001.fastq.gz']
+    R1: ['data/1951f6-DL-8_10_S13_L007_R1_001.fastq.gz', 'data/1951f6-DL-8_10_S13_L008_R1_001.fastq.gz']
+    R2: ['data/1951f6-DL-8_10_S13_L007_R2_001.fastq.gz', 'data/1951f6-DL-8_10_S13_L008_R2_001.fastq.gz']
 
 ref: 
-  human_fasta: 'data/hg38.fa'
-  yeast_fasta: 'data/sacCer3.fa'
+  human_fasta: 'reference_fastas/hg38.fa'
+  yeast_fasta: 'reference_fastas/sacCer3.fa'
 
 process_dir: "process"
 results_dir: "final_results"

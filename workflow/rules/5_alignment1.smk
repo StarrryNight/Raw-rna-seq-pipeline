@@ -2,7 +2,7 @@ rule alignment:
     input:
         r1_paired = f"{PROCESS}/{{sample}}/trimmed/R1_paired.fq.gz",
         r2_paired = f"{PROCESS}/{{sample}}/trimmed/R2_paired.fq.gz",
-        hybrid_index = f"{PROCESS}/full_hybrid_genome_index"
+        hybrid_index = f"{RESULTS}/full_hybrid_genome_index"
     output:
         bam = f"{PROCESS}/{{sample}}/aligned/Aligned.sortedByCoord.out.bam",
         bai = f"{PROCESS}/{{sample}}/aligned/Aligned.sortedByCoord.out.bam.bai"

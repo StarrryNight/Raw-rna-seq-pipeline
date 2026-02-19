@@ -6,3 +6,5 @@ results
 .claude
 logs
 reference_fastas/*
+process
+final_results

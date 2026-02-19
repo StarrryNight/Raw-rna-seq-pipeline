@@ -1,8 +1,8 @@
 rule genome_generation1:
     input:
-        hybrid_fa = f"{RESULTS}/full_hybrid_fasta/hybrid_fasta.fa"
+        hybrid_fa = "reference_fastas/hybrid_fasta.fa"
     output:
-        hybrid_index = directory(f"{RESULTS}/full_hybrid_genome_index")
+        hybrid_index = directory(f"reference_fastas/full_hybrid_genome_index")
     threads: config["star"]["threads"]
     resources:
         mem_mb = 50000,

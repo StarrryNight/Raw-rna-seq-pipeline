@@ -17,20 +17,14 @@ rule create_bigwig:
         config["modules"]["python"]
     shell:
         '''
-        REGION=$(awk '{{print $1}}' {input.bed})
-
-        bamCoverage -b {input.bam} \
-                    -o {output.bw_reverse} \
+        bamCoverage -b {input.bam} -o {output.bw_reverse} \
                     --binSize {params.bin_size} \
                     --normalizeUsing {params.normalize_using} \
                     --filterRNAstrand reverse \
-                    --region $REGION \
                     -p {threads}
-        bamCoverage -b {input.bam} \
-                    -o {output.bw_forward} \
+        bamCoverage -b {input.bam} -o {output.bw_forward} \
                     --binSize {params.bin_size} \
                     --normalizeUsing {params.normalize_using} \
                     --filterRNAstrand forward \
-                    --region $REGION \
                     -p {threads}
         '''

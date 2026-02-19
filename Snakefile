@@ -24,20 +24,24 @@ include: "workflow/rules/8_concatenate2.smk"
 include: "workflow/rules/9_genome_generation2.smk"
 include: "workflow/rules/10_alignment2.smk"
 include: "workflow/rules/11_plot_yac.smk"
+include: "workflow/rules/12_stats.smk"
 
 rule all:
     input:
-        expand(f"{RESULTS}/{{sample}}/trimmed/R1_paired.fq.gz", sample=SAMPLES),
-        expand(f"{RESULTS}/{{sample}}/trimmed/R2_paired.fq.gz", sample=SAMPLES),
-        f"{RESULTS}/full_hybrid_fasta/hybrid_fasta.fa",
+        expand(f"{PROCESS}/{{sample}}/trimmed/R1_paired.fq.gz", sample=SAMPLES),
+        expand(f"{PROCESS}/{{sample}}/trimmed/R2_paired.fq.gz", sample=SAMPLES),
+        "reference_fastas/hybrid_fasta.fa",
         f"{RESULTS}/full_hybrid_genome_index",
-        expand(f"{RESULTS}/{{sample}}/aligned/Aligned.sortedByCoord.out.bam.bai", sample=SAMPLES),
-        expand(f"{RESULTS}/{{sample}}/aligned/Aligned.sortedByCoord.out.bam", sample=SAMPLES),
-        expand(f"{RESULTS}/{{sample}}/yac/yac_region.bed", sample=SAMPLES),
-        expand(f"{RESULTS}/{{sample}}/yac_alignment/{{sample}}_forward.bw", sample=SAMPLES),
-        expand(f"{RESULTS}/{{sample}}/yac_alignment/{{sample}}_reverse.bw", sample=SAMPLES),
+        expand(f"{PROCESS}/{{sample}}/aligned/Aligned.sortedByCoord.out.bam.bai", sample=SAMPLES),
+        expand(f"{PROCESS}/{{sample}}/aligned/Aligned.sortedByCoord.out.bam", sample=SAMPLES),
+        expand(f"{PROCESS}/{{sample}}/yac/yac_region.bed", sample=SAMPLES),
+        expand(f"{PROCESS}/{{sample}}/yac_alignment/{{sample}}_forward.bw", sample=SAMPLES),
+        expand(f"{PROCESS}/{{sample}}/yac_alignment/{{sample}}_reverse.bw", sample=SAMPLES),
         expand(f"{RESULTS}/{{sample}}/yac/hybrid_fasta.fa", sample=SAMPLES),
         expand(f"{RESULTS}/{{sample}}/yac/yac_genome_index", sample=SAMPLES),
-        expand(f"{RESULTS}/{{sample}}/yac_alignment/Aligned.sortedByCoord.out.bam.bai", sample=SAMPLES),
-        expand(f"{RESULTS}/{{sample}}/yac_alignment/Aligned.sortedByCoord.out.bam", sample=SAMPLES),
-        expand(f"{RESULTS}/{{sample}}/yac_alignment/{{sample}}_coverage.png", sample=SAMPLES),
+        expand(f"{PROCESS}/{{sample}}/yac_alignment/Aligned.sortedByCoord.out.bam.bai", sample=SAMPLES),
+        expand(f"{PROCESS}/{{sample}}/yac_alignment/Aligned.sortedByCoord.out.bam", sample=SAMPLES),
+        expand(f"{RESULTS}/{{sample}}/final_result/{{sample}}_yac_coverage.png", sample=SAMPLES),
+        expand(f"{RESULTS}/{{sample}}/final_result/{{sample}}_yeast_fwd.png", sample=SAMPLES),
+        expand(f"{RESULTS}/{{sample}}/final_result/{{sample}}_yeast_rev.png", sample=SAMPLES),
+        expand(f"{RESULTS}/{{sample}}/final_result/stats.json", sample=SAMPLES),
