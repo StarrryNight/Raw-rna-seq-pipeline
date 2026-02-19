@@ -4,7 +4,7 @@ rule concat2:
         yeast_fa = config["ref"]["yeast_fasta"],
         bed_file = lambda wc: checkpoints.find_yac_region.get(sample=wc.sample).output.bed
     output:
-        hybrid_fa = f"{RESULTS}/{{sample}}/yac/hybrid_fasta.fa"
+        hybrid_fa = f"{PROCESS}/{{sample}}/yac/hybrid_fasta.fa"
     threads: 1
     envmodules:
         config["modules"]["samtools"]

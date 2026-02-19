@@ -10,9 +10,9 @@ YEAST_CHROMS = [
 ]
 
 
-def plot_yac_coverage(data, chrom, start, end, output_path):
-    fwd = data['yac_fwd']
-    rev = data['yac_rev']
+def plot_yac_coverage(fwd_data, rev_data, chrom, start, end, output_path):
+    fwd = fwd_data['yac']
+    rev = rev_data['yac']
     positions = np.arange(start, start + len(fwd))
 
     fig, (ax1, ax2) = plt.subplots(2, 1, figsize=(14, 6), sharex=True)
@@ -33,22 +33,20 @@ def plot_yac_coverage(data, chrom, start, end, output_path):
     print(f"YAC plot saved to {output_path}")
 
 
-def plot_yeast_grid(data, strand_suffix, color, output_path):
+def plot_yeast_grid(data, color, output_path, strand_label):
     fig, axes = plt.subplots(4, 4, figsize=(20, 16))
     axes = axes.flatten()
 
     for i, chrom in enumerate(YEAST_CHROMS):
-        key = f"{chrom}_{strand_suffix}"
         ax = axes[i]
-        if key in data:
-            vals = data[key]
+        if chrom in data:
+            vals = data[chrom]
             ax.fill_between(np.arange(len(vals)), vals, alpha=0.8, color=color)
         ax.set_title(chrom, fontsize=10)
         ax.set_xlabel('Position (bp)', fontsize=8)
         ax.set_ylabel('CPM', fontsize=8)
         ax.tick_params(labelsize=7)
 
-    strand_label = 'Forward' if strand_suffix == 'fwd' else 'Reverse'
     fig.suptitle(f'Yeast Chromosome Coverage — {strand_label} Strand', fontsize=14)
     plt.tight_layout()
     plt.savefig(output_path, dpi=300, bbox_inches='tight')
@@ -58,7 +56,8 @@ def plot_yeast_grid(data, strand_suffix, color, output_path):
 
 def main():
     parser = argparse.ArgumentParser(description='Plot YAC and yeast coverage from npz')
-    parser.add_argument('--npz', required=True, help='Input coverage.npz file')
+    parser.add_argument('--fwd_npz', required=True, help='Forward strand .npz file')
+    parser.add_argument('--rev_npz', required=True, help='Reverse strand .npz file')
     parser.add_argument('--bed', required=True, help='YAC region BED file')
     parser.add_argument('--out_yac', required=True, help='Output YAC coverage PNG')
     parser.add_argument('--out_yeast_fwd', required=True, help='Output yeast fwd grid PNG')
@@ -69,11 +68,12 @@ def main():
         parts = f.read().strip().split('\t')
         chrom, start, end = parts[0], int(parts[1]), int(parts[2])
 
-    data = np.load(args.npz)
+    fwd_data = np.load(args.fwd_npz)
+    rev_data = np.load(args.rev_npz)
 
-    plot_yac_coverage(data, chrom, start, end, args.out_yac)
-    plot_yeast_grid(data, 'fwd', 'steelblue', args.out_yeast_fwd)
-    plot_yeast_grid(data, 'rev', 'tomato', args.out_yeast_rev)
+    plot_yac_coverage(fwd_data, rev_data, chrom, start, end, args.out_yac)
+    plot_yeast_grid(fwd_data, 'steelblue', args.out_yeast_fwd, 'Forward')
+    plot_yeast_grid(rev_data, 'tomato', args.out_yeast_rev, 'Reverse')
 
 
 if __name__ == '__main__':

@@ -15,15 +15,27 @@ def parse_star_log(log_path):
                 unmapped += int(line.split('|')[1].strip())
     return total, unmapped
 
+def count_primary(bam_path, chrom):
+    # -F 2304 excludes secondary (256) and supplementary (2048) alignments.
+    # -c returns just the count. Uses the BAM index, so it's fast.
+    result = subprocess.run(
+        ['samtools', 'view', '-c', '-F', '2304', bam_path, chrom],
+        capture_output=True, text=True, check=True
+    )
+    return int(result.stdout.strip())
+
+
 def idxstats(bam_path):
     result = subprocess.run(
         ['samtools', 'idxstats', bam_path],
         capture_output=True, text=True, check=True
     )
-    counts = {}
+    chroms = []
     for line in result.stdout.strip().splitlines():
         chrom, length, mapped, unmapped = line.split('\t')
-        counts[chrom] = int(mapped)
+        if chrom != '*' and int(mapped) > 0:
+            chroms.append(chrom)
+    counts = {chrom: count_primary(bam_path, chrom) for chrom in chroms}
     return counts
 
 if __name__ == '__main__':
@@ -44,13 +56,13 @@ if __name__ == '__main__':
     total_reads, unmapped_reads = parse_star_log(args.log)
     chrom_counts = idxstats(args.bam)
 
-    yac_reads = chrom_counts.get(yac_chrom, 0)
+    yac_reads = chrom_counts.get(yac_chrom, 0) // 2
     yeast_reads = 0
     for chrom, count in chrom_counts.items():
         if chrom == yac_chrom or chrom == 'chrM' or chrom == '*':
             continue
         if chrom in YEAST_CHROMS:
-            yeast_reads += count
+            yeast_reads += count // 2
         else:
             print(f"Warning: unexpected chrom '{chrom}' skipped", file=sys.stderr)
 

@@ -7,7 +7,7 @@ rule record_stats:
         rev_bw = f"{PROCESS}/{{sample}}/yac_alignment/{{sample}}_reverse.bw",
         bed    = lambda wc: checkpoints.find_yac_region.get(sample=wc.sample).output.bed
     output:
-        stats = f"{RESULTS}/{{sample}}/final_result/stats.json"
+        stats = f"{RESULTS}/{{sample}}/stats.json"
     envmodules:
         config["modules"]["python"],
         config["modules"]["samtools"]

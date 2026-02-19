@@ -1,8 +1,8 @@
 rule genome_generation2:
     input:
-        hybrid_fa = f"{RESULTS}/{{sample}}/yac/hybrid_fasta.fa"
+        hybrid_fa = f"{PROCESS}/{{sample}}/yac/hybrid_fasta.fa"
     output:
-        hybrid_index = directory(f"{RESULTS}/{{sample}}/yac/yac_genome_index")
+        hybrid_index = directory(f"{PROCESS}/{{sample}}/yac/yac_genome_index")
     threads: config["star"]["threads"]
     resources:
         mem_mb = 50000,
