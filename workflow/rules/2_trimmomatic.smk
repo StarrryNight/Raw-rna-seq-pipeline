@@ -1,7 +1,7 @@
 rule trimmomatic:
     input:
-        r1 = lambda wc: config["samples"][wc.sample]["R1"],
-        r2 = lambda wc: config["samples"][wc.sample]["R2"]
+        r1 = f"{PROCESS}/{{sample}}/raw/R1_cat.fq",
+        r2 = f"{PROCESS}/{{sample}}/raw/R2_cat.fq"
     output:
         r1_paired = f"{PROCESS}/{{sample}}/trimmed/R1_paired.fq.gz",
         r1_unpaired = f"{PROCESS}/{{sample}}/trimmed/R1_unpaired.fq.gz",

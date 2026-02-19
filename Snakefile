@@ -12,17 +12,18 @@ def get_yac_bed_values(wildcards):
         parts = f.read().strip().split("\t")
         return {"chrom": parts[0], "start": parts[1], "end": parts[2]}
 
-include: "workflow/rules/qc.smk"
-include: "workflow/rules/trimmomatic.smk"
-include: "workflow/rules/genome_generation1.smk"
-include: "workflow/rules/concatenate1.smk"
-include: "workflow/rules/alignment1.smk"
-include: "workflow/rules/find_human_yac.smk"
-include: "workflow/rules/create_bw.smk"
-include: "workflow/rules/concatenate2.smk"
-include: "workflow/rules/genome_generation2.smk"
-include: "workflow/rules/alignment2.smk"
-include: "workflow/rules/plot_yac.smk"
+include: "workflow/rules/0_qc.smk"
+include: "workflow/rules/1_preprocess.smk"
+include: "workflow/rules/2_trimmomatic.smk"
+include: "workflow/rules/3_genome_generation1.smk"
+include: "workflow/rules/4_concatenate1.smk"
+include: "workflow/rules/5_alignment1.smk"
+include: "workflow/rules/6_find_human_yac.smk"
+include: "workflow/rules/7_create_bw.smk"
+include: "workflow/rules/8_concatenate2.smk"
+include: "workflow/rules/9_genome_generation2.smk"
+include: "workflow/rules/10_alignment2.smk"
+include: "workflow/rules/11_plot_yac.smk"
 
 rule all:
     input:
