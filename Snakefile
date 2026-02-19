@@ -19,6 +19,9 @@ include: "workflow/rules/alignment1.smk"
 include: "workflow/rules/find_human_yac.smk"
 include: "workflow/rules/create_bw.smk"
 include: "workflow/rules/concatenate2.smk"
+include: "workflow/rules/genome_generation2.smk"
+include: "workflow/rules/alignment2.smk"
+include: "workflow/rules/plot_yac.smk"
 
 rule all:
     input:
@@ -29,6 +32,10 @@ rule all:
         expand(f"{RESULTS}/{{sample}}/aligned/Aligned.sortedByCoord.out.bam.bai", sample=SAMPLES),
         expand(f"{RESULTS}/{{sample}}/aligned/Aligned.sortedByCoord.out.bam", sample=SAMPLES),
         expand(f"{RESULTS}/{{sample}}/yac/yac_region.bed", sample=SAMPLES),
-        expand(f"{RESULTS}/{{sample}}/bigwig/{{sample}}_forward.bw", sample=SAMPLES),
-        expand(f"{RESULTS}/{{sample}}/bigwig/{{sample}}_reverse.bw", sample=SAMPLES),
-        expand(f"{RESULTS}/{{sample}}/yac/hybrid_fasta.fa", sample=SAMPLES)
+        expand(f"{RESULTS}/{{sample}}/yac_alignment/{{sample}}_forward.bw", sample=SAMPLES),
+        expand(f"{RESULTS}/{{sample}}/yac_alignment/{{sample}}_reverse.bw", sample=SAMPLES),
+        expand(f"{RESULTS}/{{sample}}/yac/hybrid_fasta.fa", sample=SAMPLES),
+        expand(f"{RESULTS}/{{sample}}/yac/yac_genome_index", sample=SAMPLES),
+        expand(f"{RESULTS}/{{sample}}/yac_alignment/Aligned.sortedByCoord.out.bam.bai", sample=SAMPLES),
+        expand(f"{RESULTS}/{{sample}}/yac_alignment/Aligned.sortedByCoord.out.bam", sample=SAMPLES),
+        expand(f"{RESULTS}/{{sample}}/yac_alignment/{{sample}}_coverage.png", sample=SAMPLES),

@@ -1,0 +1,87 @@
+Building DAG of jobs...
+Using shell: /cvmfs/soft.computecanada.ca/gentoo/2023/x86-64-v3/usr/bin/bash
+Provided cores: 8
+Rules claiming more threads will be scaled down.
+Provided resources: mem_mb=16000, mem_mib=15259, disk_mb=2391, disk_mib=2281
+Select jobs to execute...
+
+[Wed Feb 18 18:19:15 2026]
+rule create_bigwig:
+    input: results/1951f6-DL-8_10_S13/yac_alignment/Aligned.sortedByCoord.out.bam, results/1951f6-DL-8_10_S13/yac_alignment/Aligned.sortedByCoord.out.bam.bai, results/1951f6-DL-8_10_S13/yac/yac_region.bed
+    output: results/1951f6-DL-8_10_S13/yac_alignment/1951f6-DL-8_10_S13_forward.bw, results/1951f6-DL-8_10_S13/yac_alignment/1951f6-DL-8_10_S13_reverse.bw
+    jobid: 0
+    reason: Missing output files: results/1951f6-DL-8_10_S13/yac_alignment/1951f6-DL-8_10_S13_forward.bw, results/1951f6-DL-8_10_S13/yac_alignment/1951f6-DL-8_10_S13_reverse.bw
+    wildcards: sample=1951f6-DL-8_10_S13
+    threads: 8
+    resources: mem_mb=16000, mem_mib=15259, disk_mb=2391, disk_mib=2281, tmpdir=/tmp, time=4:00:00
+
+Activating environment modules: python/3.11.5
+The following modules were not unloaded:
+  (Use "module --force purge" to unload all):
+
+  1) CCconfig        6)  ucx/1.14.1         11) flexiblas/3.3.1
+  2) gentoo/2023     7)  libfabric/1.18.0   12) imkl/2023.2.0
+  3) gcccore/.12.3   8)  pmix/4.2.4         13) StdEnv/2023
+  4) gcc/12.3        9)  ucc/1.2.0
+  5) hwloc/2.9.1     10) openmpi/4.1.5
+normalization: CPM
+bamFilesList: ['results/1951f6-DL-8_10_S13/yac_alignment/Aligned.sortedByCoord.out.bam']
+binLength: 1
+numberOfSamples: None
+blackListFileName: None
+skipZeroOverZero: False
+bed_and_bin: False
+genomeChunkSize: None
+defaultFragmentLength: read length
+numberOfProcessors: 8
+verbose: False
+region: chr1:154153965-154903468:1
+bedFile: None
+minMappingQuality: None
+ignoreDuplicates: False
+chrsToSkip: []
+stepSize: 1
+center_read: False
+samFlag_include: None
+samFlag_exclude: None
+minFragmentLength: 0
+maxFragmentLength: 0
+zerosToNans: False
+smoothLength: None
+save_data: False
+out_file_for_raw_data: None
+maxPairedFragmentLength: 1000
+filter_strand: reverse
+Offset: [1, -1]
+Traceback (most recent call last):
+  File "/home/samuel06/.local/bin/bamCoverage", line 8, in <module>
+    sys.exit(main())
+             ^^^^^^
+  File "/home/samuel06/.local/lib/python3.11/site-packages/deeptools/bamCoverage.py", line 256, in main
+    wr.run(writeBedGraph.scaleCoverage, func_args, args.outFileName,
+  File "/home/samuel06/.local/lib/python3.11/site-packages/deeptools/writeBedGraph.py", line 145, in run
+    res = mapReduce.mapReduce([func_to_call, func_args],
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/samuel06/.local/lib/python3.11/site-packages/deeptools/mapReduce.py", line 76, in mapReduce
+    chromSize, region_start, region_end, genomeChunkLength = getUserRegion(chromSize, region)
+                                                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/samuel06/.local/lib/python3.11/site-packages/deeptools/mapReduce.py", line 206, in getUserRegion
+    region_start = int(region[1])
+                   ^^^^^^^^^^^^^^
+ValueError: invalid literal for int() with base 10: '154153965-154903468'
+[Wed Feb 18 18:19:26 2026]
+Error in rule create_bigwig:
+    jobid: 0
+    input: results/1951f6-DL-8_10_S13/yac_alignment/Aligned.sortedByCoord.out.bam, results/1951f6-DL-8_10_S13/yac_alignment/Aligned.sortedByCoord.out.bam.bai, results/1951f6-DL-8_10_S13/yac/yac_region.bed
+    output: results/1951f6-DL-8_10_S13/yac_alignment/1951f6-DL-8_10_S13_forward.bw, results/1951f6-DL-8_10_S13/yac_alignment/1951f6-DL-8_10_S13_reverse.bw
+    shell:
+        
+        REGION=$(awk '{print $1":"$2"-"$3}' results/1951f6-DL-8_10_S13/yac/yac_region.bed)
+
+        bamCoverage -b results/1951f6-DL-8_10_S13/yac_alignment/Aligned.sortedByCoord.out.bam                     -o results/1951f6-DL-8_10_S13/yac_alignment/1951f6-DL-8_10_S13_reverse.bw                     --binSize 1                     --normalizeUsing CPM                     --filterRNAstrand reverse                     --region $REGION                     -p 8
+        bamCoverage -b results/1951f6-DL-8_10_S13/yac_alignment/Aligned.sortedByCoord.out.bam                     -o results/1951f6-DL-8_10_S13/yac_alignment/1951f6-DL-8_10_S13_forward.bw                     --binSize 1                     --normalizeUsing CPM                     --filterRNAstrand forward                     --region $REGION                     -p 8
+        
+        (one of the commands exited with non-zero exit code; note that snakemake uses bash strict mode!)
+
+Shutting down, this might take some time.
+Exiting because a job execution failed. Look above for error message

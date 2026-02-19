@@ -1,0 +1,8 @@
+	STAR --runMode alignReads --runThreadN 8 --genomeDir results/1951f6-DL-8_10_S13/yac/yac_genome_index --readFilesIn results/1951f6-DL-8_10_S13/trimmed/R1_paired.fq.gz results/1951f6-DL-8_10_S13/trimmed/R2_paired.fq.gz --readFilesCommand zcat --alignIntronMax 500000 --outSAMtype BAM SortedByCoordinate --outFileNamePrefix results/1951f6-DL-8_10_S13/yac_alignment/
+	STAR version: 2.7.11b   compiled: 2024-05-29T23:13:52+00:00 node1:/tmp/ebuser/avx512/STAR/2.7.11b/GCCcore-12.3-gentoo/STAR-2.7.11b/source
+Feb 18 18:13:06 ..... started STAR run
+Feb 18 18:13:07 ..... loading genome
+Feb 18 18:13:11 ..... started mapping
+Feb 18 18:16:46 ..... finished mapping
+Feb 18 18:16:47 ..... started sorting BAM
+Feb 18 18:17:29 ..... finished successfully

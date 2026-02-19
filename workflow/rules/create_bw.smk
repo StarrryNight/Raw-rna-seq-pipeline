@@ -1,10 +1,11 @@
 rule create_bigwig:
     input:
-        bam = f"{RESULTS}/{{sample}}/aligned/Aligned.sortedByCoord.out.bam",
-        bai = f"{RESULTS}/{{sample}}/aligned/Aligned.sortedByCoord.out.bam.bai"
+        bam = f"{RESULTS}/{{sample}}/yac_alignment/Aligned.sortedByCoord.out.bam",
+        bai = f"{RESULTS}/{{sample}}/yac_alignment/Aligned.sortedByCoord.out.bam.bai",
+        bed = lambda wc: checkpoints.find_yac_region.get(sample=wc.sample).output.bed
     output:
-        bw_forward = f"{RESULTS}/{{sample}}/bigwig/{{sample}}_forward.bw",
-        bw_reverse = f"{RESULTS}/{{sample}}/bigwig/{{sample}}_reverse.bw"
+        bw_forward = f"{RESULTS}/{{sample}}/yac_alignment/{{sample}}_forward.bw",
+        bw_reverse = f"{RESULTS}/{{sample}}/yac_alignment/{{sample}}_reverse.bw"
     threads: config["bamcoverage"]["threads"]
     resources:
         mem_mb = 16000,
@@ -16,16 +17,20 @@ rule create_bigwig:
         config["modules"]["python"]
     shell:
         '''
+        REGION=$(awk '{{print $1}}' {input.bed})
+
         bamCoverage -b {input.bam} \
                     -o {output.bw_reverse} \
                     --binSize {params.bin_size} \
                     --normalizeUsing {params.normalize_using} \
                     --filterRNAstrand reverse \
+                    --region $REGION \
                     -p {threads}
         bamCoverage -b {input.bam} \
                     -o {output.bw_forward} \
                     --binSize {params.bin_size} \
                     --normalizeUsing {params.normalize_using} \
                     --filterRNAstrand forward \
+                    --region $REGION \
                     -p {threads}
         '''

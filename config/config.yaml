@@ -47,3 +47,5 @@ modules:
   star: "star/2.7.11b"
   samtools: "samtools/1.18"
   python: "python/3.11.5"
+  bedtools: "bedtools/2.31.0"
+# This takes your original human fasta and replaces the BED regions with Ns
