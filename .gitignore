@@ -5,3 +5,4 @@ results
 .snakemake
 .claude
 logs
+reference_fastas/*
